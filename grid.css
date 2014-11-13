@@ -1,0 +1,39 @@
+body{
+  position:static;
+}
+#c0-0 {
+background: #ff0000;
+width:50px;
+/*display*/: inline;
+height: 50px;
+position:absolute;
+top:00px;
+left:00px;}
+
+#c0-1 {
+background: #00ff00;
+width: 50px;
+/*display: inline;*/
+height: 50px;
+position:absolute;
+top:00px;
+left:50px;}
+
+#c1-0 {
+background: #00ff00;
+width: 50px;
+/*display*/: inline;
+height: 50px;
+position:absolute;
+top:50px;
+left:00px;}
+
+#c1-1 {
+background: #ff0000;
+width: 50px;
+/*display*/: inline;
+height: 50px;
+position:absolute;
+top:50px;
+left:50px;}
+
