@@ -24,6 +24,20 @@
 #   10.times {|i| file.write("#{i}th line, dawg\n")}
 # end
 # File.write("./test.css", "test 2")
+def make_heat_map()
+  table = {}
+  # n = 0
+  100.times {|n|
+    norm = n.to_f/100
+    r, g, b = (1-norm)*255, (norm)*(1-norm)*4*255, norm*255
+    # print n, r, g, b, "\n"
+    table[n]=[r.to_i, g.to_i, b.to_i]}
+    # n+=1
+  # end
+  table[100]=[0,0,0]
+  return table
+end
+
 def style_string (xi, yi, len, color)
   id= "#c#{xi}-#{yi}{"
   size = "width:#{len}px; height:#{len}px;"
@@ -54,15 +68,15 @@ begin
   file.write(html_close)
 end
 size = 2
-heat_map = {}
-heat_map[0],heat_map[1],heat_map[2] = [255,0,0],[0,255,0],[0,0,255]
+heat_map = make_heat_map
+# heat_map[0],heat_map[1],heat_map[2] = [255,0,0],[0,255,0],[0,0,255]
 
 # puts style_string(1,2,256,[255,0,0])
 begin
   file=File.open("./test.css", mode = "w")
   256.times {|x|
   256.times {
-    |y| file.write(style_string(x,y, size, heat_map[(x+y)%3] ))}
+    |y| file.write(style_string(x,y, size, heat_map[(x+y)%101] ))}
     file.write( "\n")}
 
 end
