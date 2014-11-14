@@ -24,6 +24,20 @@
 #   10.times {|i| file.write("#{i}th line, dawg\n")}
 # end
 # File.write("./test.css", "test 2")
+
+def time_of_flight(xi, yi)
+  n = 0
+  x , y = xi, yi
+  while x**2 + y**2 <4 do
+    x, y = x**2 - y**2 +xi, 2*x*y+yi
+    n+=1
+    if n >= 100
+      return n
+    end
+  end
+  return n
+end
+
 def make_heat_map()
   table = {}
   # n = 0
@@ -67,7 +81,12 @@ begin
       file.write( "\n")}
   file.write(html_close)
 end
-size = 2
+size = 1
+x0, y0, m = -2, 2, -2 #full view
+# x0, y0, m = -0.55, 0.55, 4 # a crevice
+# x0, y0, m = -1, -0.25, 4 # creeping tendrils.
+# x0, y0, m = -1.35, 0.09, 8 # tree
+
 heat_map = make_heat_map
 # heat_map[0],heat_map[1],heat_map[2] = [255,0,0],[0,255,0],[0,0,255]
 
@@ -75,8 +94,12 @@ heat_map = make_heat_map
 begin
   file=File.open("./test.css", mode = "w")
   256.times {|x|
-  256.times {
-    |y| file.write(style_string(x,y, size, heat_map[(x+y)%101] ))}
+    256.times {|y|
+      xc, yc = x0+x*(1.0/(256*2**m)), y0-y*(1.0/(256*2**m))
+      flight = time_of_flight(xc, yc)
+      file.write(style_string(x,y, size, heat_map[flight] ))}
     file.write( "\n")}
 
 end
+# window size is 1/2**m, divide into 256 steps, multiply by
+# step number, add to p0.
